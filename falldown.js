@@ -22,52 +22,61 @@ function updatePos(moX){
 		this.x = WIDTH - this.w;
 }
 function fallCursor(speed,w){
-	if(this.y + this.h <= w.y && w.y <= this.y + this.h + speed ){
+	var hit = false;
+	if(this.y + this.h <= w.y && w.y <= this.y + this.h + speed ){ // Will the wall be hit?
 		if(w.holeX1 < this.x && this.x + this.w < w.holeX2)
 			this.y += speed;
-		else
+		else {
 			this.y = w.y - this.w;
+			hit = true;
+		}
 	}
 	else {
 		this.y += speed;
 	}
-	if(this.y + this.h > w.y +5 && this.y < w.y + w.h ){
+	if(this.y + this.h > w.y && this.y < w.y + w.h ){ // Hole collision
 		if(w.holeX1 > this.x)
 			this.x = w.holeX1;
 		if(this.x + this.w > w.holeX2)
 			this.x = w.holeX2 - this.w;
 	}
+	return hit;
 }
 // ] Cursor class
 
-function Wall(){
-	this.y = HEIGHT;
+function Wall(y){
+	this.y = y;
 	this.h = 25;
-	this.holeX1;
-	this.holeX2;
+	this.holeX1 = 100;
+	this.holeX2 = 200;
 	this.draw = drawWall;
+	this.moveUp = moveUpWall;
 }
 function drawWall(){
 	ctx.fillRect(0,this.y,this.holeX1,this.h);
 	ctx.fillRect(this.holeX2,this.y,WIDTH - this.holeX2,this.h);
 }
+function moveUpWall(speed){
+	this.y -= speed;
+}
 
 var cur = new Cursor();
-var wall = new Wall();
-wall.y = 100;
-wall.holeX1 = 100;
-wall.holeX2 = 200;
+var walls = new Array();
+for(i = 0; i < 10; i++) {
+	walls[walls.length] = new Wall(i * 100);
+}
+
 
 function init(){
 	points = 0;
 	$('#points').html("");
-	intervalId = setInterval(draw, 20);
+	intervalId = setInterval(draw, 100);
 	$("#container").removeClass("end");
 }
 
 $(document).mousemove(function(evt) {
 	var mouseX = evt.pageX -canvasMinX;
-	cur.updatePos(mouseX,wall);
+	cur.updatePos(mouseX);
 });
 function rect(x,y,w,h) {
 	ctx.beginPath();
@@ -89,9 +98,22 @@ function die() {
 }
 function draw() {
 	clear();
-	cur.fall(10,wall);
-	rect(cur.x, cur.y, cur.w, cur.h);
-	wall.draw();
+	var current = true;
+	var hit;
+	for(i = 0; i < 10; i++) {
+		if(current && cur.y  <= walls[i].y + walls[i].h) // Current wall to collide with.
+		{
+			current = false;
+			hit = cur.fall(5,walls[i]);
+		}
+		walls[i].moveUp(5);
+		walls[i].draw();
+		if(hit) { // Move cursor upwards if it's colliding
+			cur.y = walls[i].y - cur.h;
+			hit = false;
+		}
+	}
+	rect(cur.x, cur.y, cur.w, cur.h);	
 }
 	var canvas = $('#can')[0];
 	if(canvas.getContext){
