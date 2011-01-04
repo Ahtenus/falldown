@@ -70,7 +70,7 @@ for(i = 0; i < 10; i++) {
 function init(){
 	points = 0;
 	$('#points').html("");
-	intervalId = setInterval(draw, 100);
+	intervalId = setInterval(draw, 20);
 	$("#container").removeClass("end");
 }
 
@@ -84,8 +84,8 @@ function rect(x,y,w,h) {
 	ctx.closePath();
 	ctx.fill();
 }
-function AddPoints(){
-	$('#points').html(points += Math.round((250-cur.w)/26*Math.abs(dy)));
+function addPoints(){
+	$('#points').html(points += 1);
 }
 function clear(){
 	 ctx.clearRect(0,0,WIDTH,HEIGHT + 5);
@@ -113,13 +113,20 @@ function draw() {
 			hit = false;
 		}
 	}
+	if(current){ // Cursor is beneath last wall, use buttom of screen as wall
+		var thefloor = new Wall();
+		thefloor.y = HEIGHT;
+		thefloor.holeX1 = 0;
+		thefloor.holeX2 = 0;
+		cur.fall(5,thefloor);
+	}
 	rect(cur.x, cur.y, cur.w, cur.h);	
 }
-	var canvas = $('#can')[0];
-	if(canvas.getContext){
-		ctx = canvas.getContext('2d');
-		canvasMinX = $("#can").offset().left;
-		init();
-	}
+var canvas = $('#can')[0];
+if(canvas.getContext){
+	ctx = canvas.getContext('2d');
+	canvasMinX = $("#can").offset().left;
+	init();
+}
 });
 
