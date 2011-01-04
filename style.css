@@ -54,7 +54,7 @@
     z-index:4;
   }
   div#container {
-    cursor:none;
+    cursor:crosshair;
     height: 550px;
     left: 50%;
     top: 50%;

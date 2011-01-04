@@ -1,4 +1,14 @@
 $(document).ready(function() {
+/*
+ TODO:	Don't shift array
+		Death
+		Points
+		Fair random
+		Levels
+
+
+*/
+
 var ctx;
 var intervalId;
 var canvasMinX;
@@ -8,9 +18,9 @@ var points;
 
 function Cursor(){
 	this.x = WIDTH/2;
-	this.y = 10;
 	this.w = 25;
 	this.h = 25;
+	this.y = HEIGHT - this.h;
 	this.updatePos = updatePos;
 	this.fall = fallCursor;
 }
@@ -23,32 +33,40 @@ function updatePos(moX){
 }
 function fallCursor(speed,w){
 	var hit = false;
-	if(this.y + this.h <= w.y && w.y <= this.y + this.h + speed ){ // Will the wall be hit?
-		if(w.holeX1 < this.x && this.x + this.w < w.holeX2)
-			this.y += speed;
-		else {
-			this.y = w.y - this.w;
-			hit = true;
-		}
+	if(w == null){
+		this.y += speed
 	}
 	else {
-		this.y += speed;
+		if(this.y + this.h <= w.y && w.y <= this.y + this.h + speed ){ // Will the wall be hit?
+			if(w.holeX1 < this.x && this.x + this.w < w.holeX2)
+				this.y += speed;
+			else {
+				this.y = w.y - this.w;
+				hit = true;
+			}
+		}
+		else {
+			this.y += speed;
+		}
+		if(this.y + this.h > w.y && this.y < w.y + w.h ){ // Hole collision
+			if(w.holeX1 > this.x)
+				this.x = w.holeX1;
+			if(this.x + this.w > w.holeX2)
+				this.x = w.holeX2 - this.w;
+		}
 	}
-	if(this.y + this.h > w.y && this.y < w.y + w.h ){ // Hole collision
-		if(w.holeX1 > this.x)
-			this.x = w.holeX1;
-		if(this.x + this.w > w.holeX2)
-			this.x = w.holeX2 - this.w;
-	}
+	if(this.y + this.h > HEIGHT)
+		this.y = HEIGHT - this.h;
 	return hit;
 }
 // ] Cursor class
 
-function Wall(y){
-	this.y = y;
+function Wall(){
+	this.y = HEIGHT;
 	this.h = 25;
-	this.holeX1 = 100;
-	this.holeX2 = 200;
+	
+	this.holeX1 = Math.floor((WIDTH/25 - 1)*Math.random())*25;
+	this.holeX2 = this.holeX1 + 50;
 	this.draw = drawWall;
 	this.moveUp = moveUpWall;
 }
@@ -62,11 +80,7 @@ function moveUpWall(speed){
 
 var cur = new Cursor();
 var walls = new Array();
-for(i = 0; i < 10; i++) {
-	walls[walls.length] = new Wall(i * 100);
-}
-
-
+walls[0] = new Wall();
 function init(){
 	points = 0;
 	$('#points').html("");
@@ -100,11 +114,11 @@ function draw() {
 	clear();
 	var current = true;
 	var hit;
-	for(i = 0; i < 10; i++) {
+	for(i = 0; i < walls.length; i++) {
 		if(current && cur.y  <= walls[i].y + walls[i].h) // Current wall to collide with.
 		{
 			current = false;
-			hit = cur.fall(5,walls[i]);
+			hit = cur.fall(10,walls[i]);
 		}
 		walls[i].moveUp(5);
 		walls[i].draw();
@@ -113,14 +127,15 @@ function draw() {
 			hit = false;
 		}
 	}
-	if(current){ // Cursor is beneath last wall, use buttom of screen as wall
-		var thefloor = new Wall();
-		thefloor.y = HEIGHT;
-		thefloor.holeX1 = 0;
-		thefloor.holeX2 = 0;
-		cur.fall(5,thefloor);
-	}
+	if(current)
+		cur.fall(10,null);
+	if(walls[walls.length -1 ].y < HEIGHT - 125)
+		walls[walls.length] = new Wall();
+	if(walls[0].y + walls[0].h < 0)
+		walls.shift();
+	ctx.fillStyle = "orange";
 	rect(cur.x, cur.y, cur.w, cur.h);	
+	ctx.fillStyle = "black";
 }
 var canvas = $('#can')[0];
 if(canvas.getContext){
