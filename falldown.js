@@ -5,8 +5,6 @@ $(document).ready(function() {
 		Points
 		Fair random
 		Levels
-
-
 */
 
 var ctx;
@@ -31,14 +29,15 @@ function updatePos(moX){
 	if(this.x + this.w > WIDTH)
 		this.x = WIDTH - this.w;
 }
-function fallCursor(speed,w){
+function fallCursor(w){
+	var speed = 10;
 	var hit = false;
 	if(w == null){
 		this.y += speed
 	}
 	else {
 		if(this.y + this.h <= w.y && w.y <= this.y + this.h + speed ){ // Will the wall be hit?
-			if(w.holeX1 < this.x && this.x + this.w < w.holeX2)
+			if(w.holeX1 <= this.x && this.x + this.w <= w.holeX2)
 				this.y += speed;
 			else {
 				this.y = w.y - this.w;
@@ -64,9 +63,9 @@ function fallCursor(speed,w){
 function Wall(){
 	this.y = HEIGHT;
 	this.h = 25;
-	
-	this.holeX1 = Math.floor((WIDTH/25 - 1)*Math.random())*25;
-	this.holeX2 = this.holeX1 + 50;
+	var holewidth = Math.floor((5)*Math.random()) + 2;
+	this.holeX1 = Math.floor((29 - holewidth)*Math.random())*25;
+	this.holeX2 = this.holeX1 + holewidth*25;
 	this.draw = drawWall;
 	this.moveUp = moveUpWall;
 }
@@ -98,8 +97,8 @@ function rect(x,y,w,h) {
 	ctx.closePath();
 	ctx.fill();
 }
-function addPoints(){
-	$('#points').html(points += 1);
+function addPoints(p){
+	$('#points').html(points += p);
 }
 function clear(){
 	 ctx.clearRect(0,0,WIDTH,HEIGHT + 5);
@@ -114,21 +113,24 @@ function draw() {
 	clear();
 	var current = true;
 	var hit;
+	var speed = 4;
 	for(i = 0; i < walls.length; i++) {
 		if(current && cur.y  <= walls[i].y + walls[i].h) // Current wall to collide with.
 		{
 			current = false;
-			hit = cur.fall(10,walls[i]);
+			hit = cur.fall(walls[i]);
 		}
-		walls[i].moveUp(5);
+		walls[i].moveUp(speed);
 		walls[i].draw();
 		if(hit) { // Move cursor upwards if it's colliding
 			cur.y = walls[i].y - cur.h;
 			hit = false;
 		}
 	}
+	addPoints(speed);
 	if(current)
-		cur.fall(10,null);
+		cur.fall(null);
+		
 	if(walls[walls.length -1 ].y < HEIGHT - 125)
 		walls[walls.length] = new Wall();
 	if(walls[0].y + walls[0].h < 0)
