@@ -1,9 +1,8 @@
 $(document).ready(function() {
 /*
  TODO:	Fair random
-		Levels
-		Slightly different distance between walls
-		Glitch every 4th wall
+	Levels
+	Slightly different distance between walls
 */
 
 var ctx;
@@ -30,14 +29,14 @@ function updatePos(moX){
 	if(this.x + this.w > WIDTH)
 		this.x = WIDTH - this.w;
 }
-function fallCursor(w){
+function fallCursor(w,wallspeed){
 	var speed = 10;
 	var hit = false;
 	if(w == null){
 		this.y += speed
 	}
 	else {
-		if(this.y + this.h <= w.y && w.y <= this.y + this.h + speed ){ // Will the wall be hit?
+		if(this.y + this.h <= w.y && w.y <= this.y + this.h + speed + wallspeed){ // Will the wall be hit?
 			if(w.holeX1 <= this.x && this.x + this.w <= w.holeX2)
 				this.y += speed;
 			else {
@@ -45,7 +44,7 @@ function fallCursor(w){
 				hit = true;
 			}
 		}
-		else {
+		else {   
 			this.y += speed;
 		}
 		if(this.y + this.h > w.y && this.y < w.y + w.h ){ // Hole collision
@@ -116,14 +115,14 @@ function draw() {
 	clear();
 	var current = true;
 	var hit;
-	var speed = 4;
-	for(var k = 0; k < walls.length; k++) {
+	var speed = 4; 
+	var k;
+	for(k = 0; k < walls.length; k++) {
 		var i = cursor + k < walls.length ? cursor + k : cursor + k - walls.length; // To avoid array.shift()
 		if(current && cur.y  <= walls[i].y + walls[i].h) // Current wall to collide with.
 		{
 			current = false;
-			hit = cur.fall(walls[i]);
-			//$('#points').html(i+ " " + k);
+			hit = cur.fall(walls[i],speed);
 		}
 		walls[i].moveUp(speed);
 		walls[i].draw();
