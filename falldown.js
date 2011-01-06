@@ -11,9 +11,11 @@ var ctx;
 var intervalId;
 var canvasMinX;
 var WIDTH = 700;
-var HEIGHT = 500;
+var HEIGHT = 480;
 var points;
-
+var cur;
+var walls;
+var cursor;
 function Cursor(){
 	this.x = WIDTH/2;
 	this.w = 25;
@@ -76,20 +78,23 @@ function drawWall(){
 function moveUpWall(speed){
 	this.y -= speed;
 }
-
-var cur = new Cursor();
-var walls = new Array();
-walls[0] = new Wall();
 function init(){
+	cur = new Cursor();
 	points = 0;
 	$('#points').html("");
+	walls = new Array();
+	walls[0] = new Wall();
+	cursor = 0;
+	$("body").removeClass("end");
 	intervalId = setInterval(draw, 20);
-	$("#container").removeClass("end");
 }
 
 $(document).mousemove(function(evt) {
 	var mouseX = evt.pageX -canvasMinX;
 	cur.updatePos(mouseX);
+});
+$(window).resize(function() {
+	canvasMinX = $("#can").offset().left;
 });
 function rect(x,y,w,h) {
 	ctx.beginPath();
@@ -102,14 +107,12 @@ function addPoints(p){
 }
 function clear(){
 	 ctx.clearRect(0,0,WIDTH,HEIGHT + 5);
-	 ctx.fillStyle = "black";
+	 ctx.fillStyle = "#1A1A18";
 }
 function die() {
 	clearInterval(intervalId);
-	$("#container").addClass("end");
-	$(document).unbind('click', docclick);
+	$("body").addClass("end");
 }
-var cursor = 0;
 function draw() {
 	clear();
 	var current = true;
@@ -121,7 +124,6 @@ function draw() {
 		{
 			current = false;
 			hit = cur.fall(walls[i]);
-			$('#points').html(i);
 		}
 		walls[i].moveUp(speed);
 		walls[i].draw();
@@ -130,14 +132,13 @@ function draw() {
 			hit = false;
 		}
 	}
-	//addPoints(speed);
 	if(current){
 		cur.fall(null);
 	}
 	if(walls.length < 4){
 		if(walls[walls.length -1 ].y < HEIGHT - 125) {
 			walls[walls.length] = new Wall();
-			
+		
 		}
 	}
 	else {
@@ -148,15 +149,22 @@ function draw() {
 				cursor = 0;
 		}
 	}
+
 	ctx.fillStyle = "orange";
 	rect(cur.x, cur.y, cur.w, cur.h);	
-	ctx.fillStyle = "black";
+	addPoints(speed);
+	if (cur.y < 0)
+		die();
 }
 var canvas = $('#can')[0];
 if(canvas.getContext){
 	ctx = canvas.getContext('2d');
-	canvasMinX = $("#can").offset().left;
+	$(window).resize();
 	init();
 }
+$('#again').click( function(){
+	init();
+});
+// end document.ready
 });
 
