@@ -1,10 +1,9 @@
 $(document).ready(function() {
 /*
- TODO:	Death
-		Points
-		Fair random
+ TODO:	Fair random
 		Levels
 		Slightly different distance between walls
+		Glitch every 4th wall
 */
 
 var ctx;
@@ -124,6 +123,7 @@ function draw() {
 		{
 			current = false;
 			hit = cur.fall(walls[i]);
+			//$('#points').html(i+ " " + k);
 		}
 		walls[i].moveUp(speed);
 		walls[i].draw();

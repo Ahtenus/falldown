@@ -49,6 +49,7 @@ div#endscreen a{
 	color:gray;
 	display:none;
 	z-index:4;
+	cursor:pointer;
 }
 div#bar{
 	padding: 0 15px;
@@ -69,7 +70,7 @@ div#container {
 	position:absolute;
 	width:700px;
 }
-div#container.end{
+body.end div#container{
 	cursor:default;
 }
 #again{
