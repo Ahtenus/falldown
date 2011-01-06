@@ -1,10 +1,10 @@
 $(document).ready(function() {
 /*
- TODO:	Don't shift array
-		Death
+ TODO:	Death
 		Points
 		Fair random
 		Levels
+		Slightly different distance between walls
 */
 
 var ctx;
@@ -109,16 +109,19 @@ function die() {
 	$("#container").addClass("end");
 	$(document).unbind('click', docclick);
 }
+var cursor = 0;
 function draw() {
 	clear();
 	var current = true;
 	var hit;
 	var speed = 4;
-	for(i = 0; i < walls.length; i++) {
+	for(var k = 0; k < walls.length; k++) {
+		var i = cursor + k < walls.length ? cursor + k : cursor + k - walls.length; // To avoid array.shift()
 		if(current && cur.y  <= walls[i].y + walls[i].h) // Current wall to collide with.
 		{
 			current = false;
 			hit = cur.fall(walls[i]);
+			$('#points').html(i);
 		}
 		walls[i].moveUp(speed);
 		walls[i].draw();
@@ -127,14 +130,24 @@ function draw() {
 			hit = false;
 		}
 	}
-	addPoints(speed);
-	if(current)
+	//addPoints(speed);
+	if(current){
 		cur.fall(null);
-		
-	if(walls[walls.length -1 ].y < HEIGHT - 125)
-		walls[walls.length] = new Wall();
-	if(walls[0].y + walls[0].h < 0)
-		walls.shift();
+	}
+	if(walls.length < 4){
+		if(walls[walls.length -1 ].y < HEIGHT - 125) {
+			walls[walls.length] = new Wall();
+			
+		}
+	}
+	else {
+		if(walls[cursor].y + walls[cursor].h < 0) {
+			walls[cursor] = new Wall();
+			cursor++;
+			if(cursor == walls.length)
+				cursor = 0;
+		}
+	}
 	ctx.fillStyle = "orange";
 	rect(cur.x, cur.y, cur.w, cur.h);	
 	ctx.fillStyle = "black";
