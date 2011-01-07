@@ -160,7 +160,7 @@ function draw() {
 		}
 	}
 
-	ctx.fillStyle = "CCCC49";
+	ctx.fillStyle = "#CCCC49";
 	rect(cur.x, cur.y, cur.w, cur.h);	
 	addPoints(level);
 	if (cur.y < 0)
