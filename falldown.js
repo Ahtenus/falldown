@@ -1,7 +1,14 @@
+/* 
+ * Falldown canvas game
+ * Copyright 2011 Viktor Barsk
+ * Licenced under CC BY-SA 2.5 
+ * http://creativecommons.org/licenses/by-sa/2.5/se/
+ */
+
 $(document).ready(function() {
 /*
- TODO:	Fair random
-	Levels
+ TODO:	
+ 	Fair random
 	Slightly different distance between walls
 */
 
@@ -87,7 +94,7 @@ function init(){
 	walls = new Array();
 	walls[0] = new Wall();
 	cursor = 0;
-	$("body").removeClass("end");
+	$("body").removeClass("end start");
 	intervalId = setInterval(draw, 25);
 }
 
@@ -153,7 +160,7 @@ function draw() {
 		}
 	}
 
-	ctx.fillStyle = "orange";
+	ctx.fillStyle = "CCCC49";
 	rect(cur.x, cur.y, cur.w, cur.h);	
 	addPoints(level);
 	if (cur.y < 0)
@@ -168,9 +175,8 @@ var canvas = $('#can')[0];
 if(canvas.getContext){
 	ctx = canvas.getContext('2d');
 	$(window).resize();
-	init();
 }
-$('#again').click( function(){
+$('a.play').click( function(){
 	init();
 });
 // end document.ready

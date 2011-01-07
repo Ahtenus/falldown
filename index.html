@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="style.css" media="screen" charset="utf-8" />
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>Falldown canvas game</title>
+<link rel="stylesheet" href="style.css" media="screen">
 <script src=http://code.jquery.com/jquery-1.4.4.min.js></script>
-<script src="falldown.js" type="text/javascript" language="javascript" charset="utf-8"></script>
-<body>
+<script src="falldown.js" type="text/javascript"></script>
+</head>
+<body class=start>
 <div id=container>
 	<div id=bar>
 		<div class=score>Score: <span id=points></span></div>
 		<div class=level> Level: <span id=level></span></div>
 	</div>
 	<canvas id=can width="700" height="480"></canvas>
-	<div id=endscreen>
-		<a id=again>Play again</a>
+	<div id=startscreen class=screen>
+		<p>Avoid the ceiling.</p>
+		<a class=play>Play</a>
+	</div>
+	<div id=endscreen class=screen>
+		<a class=play>Play again</a>
 	</div>
 </div>
 </body>
