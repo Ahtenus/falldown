@@ -61,6 +61,12 @@ div#bar{
 	color:gray;
 	background-color:hsl(60, 4%,5%);
 }
+div#bar .score{float:left;}
+div#bar .level{
+	text-align:right;
+	width:70px;
+	float:right;
+}
 div#container {
 	-moz-box-shadow: 2px 2px 10px rgba(0,0,0,0.7);
 	-webkit-box-shadow: 2px 2px 10px rgba(0,0,0,0.7);

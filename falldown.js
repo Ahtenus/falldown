@@ -14,6 +14,8 @@ var points;
 var cur;
 var walls;
 var cursor;
+var level;
+var frame;
 function Cursor(){
 	this.x = WIDTH/2;
 	this.w = 25;
@@ -30,7 +32,7 @@ function updatePos(moX){
 		this.x = WIDTH - this.w;
 }
 function fallCursor(w,wallspeed){
-	var speed = 10;
+	var speed = 7 + level;
 	var hit = false;
 	if(w == null){
 		this.y += speed
@@ -80,15 +82,17 @@ function init(){
 	cur = new Cursor();
 	points = 0;
 	$('#points').html("");
+	frame = 0;
+	$('#level').html(level = 1);
 	walls = new Array();
 	walls[0] = new Wall();
 	cursor = 0;
 	$("body").removeClass("end");
-	intervalId = setInterval(draw, 20);
+	intervalId = setInterval(draw, 25);
 }
 
 $(document).mousemove(function(evt) {
-	var mouseX = evt.pageX -canvasMinX;
+	var mouseX = evt.pageX - canvasMinX;
 	cur.updatePos(mouseX);
 });
 $(window).resize(function() {
@@ -115,7 +119,7 @@ function draw() {
 	clear();
 	var current = true;
 	var hit;
-	var speed = 4; 
+	var speed = 4 + level; 
 	var k;
 	for(k = 0; k < walls.length; k++) {
 		var i = cursor + k < walls.length ? cursor + k : cursor + k - walls.length; // To avoid array.shift()
@@ -151,9 +155,14 @@ function draw() {
 
 	ctx.fillStyle = "orange";
 	rect(cur.x, cur.y, cur.w, cur.h);	
-	addPoints(speed);
+	addPoints(level);
 	if (cur.y < 0)
 		die();
+	frame++;
+	if (frame >= 500){
+		frame  = 0;
+		$('#level').html(++level);
+	}
 }
 var canvas = $('#can')[0];
 if(canvas.getContext){
