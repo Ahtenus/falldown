@@ -7,7 +7,7 @@
 
 *{margin:0;padding:0;}
 body{
-	background-color: hsl(60, 4%,20%);
+	background-color: hsl(60, 4%,10%);
 	font-family: Calibri,sans,arial, Sans-serif;
 	width:100%;
 	height:100%;
@@ -22,6 +22,12 @@ body.end{
 }
 body.start{
 	background-color: hsl(60, 4%,80%);
+}
+body.top10{
+	background-color: hsl(60, 14%,10%);
+}
+body.highscore{
+	background-color: orange;
 }
 canvas{
 	background-color: hsl(60, 4%,14%);

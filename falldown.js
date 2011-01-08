@@ -10,6 +10,8 @@ $(document).ready(function() {
  TODO:	
  	Fair random
 	Slightly different distance between walls
+	Firefox get score bug
+	styling
 */
 
 var ctx;
@@ -23,6 +25,9 @@ var walls;
 var cursor;
 var level;
 var frame;
+var top10;
+var highscore;
+$.ajax({cache : false})
 function Cursor(){
 	this.x = WIDTH/2;
 	this.w = 25;
@@ -85,6 +90,19 @@ function drawWall(){
 function moveUpWall(speed){
 	this.y -= speed;
 }
+function getScore(){
+	$.getJSON("score.json",
+		function(data) {
+			$('#highscore').html("");
+			top10 = data[data.length-1].s;
+			highscore = data[0].s;
+			alert(top10 + " " + highscore);
+		$.each(data, function(i,item){
+			$('#highscore').append("<tr><td>"+item.n+"<td>"+item.s+"</tr>");
+		});
+	});
+
+}
 function init(){
 	cur = new Cursor();
 	points = 0;
@@ -94,7 +112,8 @@ function init(){
 	walls = new Array();
 	walls[0] = new Wall();
 	cursor = 0;
-	$("body").removeClass("end start");
+	$("body").removeClass();
+	getScore();
 	intervalId = setInterval(draw, 25);
 }
 
@@ -113,6 +132,10 @@ function rect(x,y,w,h) {
 }
 function addPoints(p){
 	$('#points').html(points += p);
+	if(points == top10)
+		$("body").addClass("top10");
+	if(points == highscore)
+		$("body").addClass("highscore").removeClass("top10");
 }
 function clear(){
 	 ctx.clearRect(0,0,WIDTH,HEIGHT + 5);
