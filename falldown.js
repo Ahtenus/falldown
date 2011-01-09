@@ -3,6 +3,7 @@
  * Copyright 2011 Viktor Barsk
  * Licenced under CC BY-SA 2.5 
  * http://creativecommons.org/licenses/by-sa/2.5/se/
+ * Source code: https://github.com/Ahtenus/falldown
  */
 
 $(document).ready(function() {
@@ -96,7 +97,6 @@ function getScore(){
 			$('#highscore').html("");
 			top10 = data[data.length-1].s;
 			highscore = data[0].s;
-			alert(top10 + " " + highscore);
 		$.each(data, function(i,item){
 			$('#highscore').append("<tr><td>"+item.n+"<td>"+item.s+"</tr>");
 		});

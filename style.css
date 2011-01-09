@@ -3,11 +3,13 @@
  * Copyright 2011 Viktor Barsk
  * Licenced under CC BY-SA 2.5 
  * http://creativecommons.org/licenses/by-sa/2.5/se/
- */
+ * Source code: https://github.com/Ahtenus/falldown
+*/
 
 *{margin:0;padding:0;}
 body{
 	background-color: hsl(60, 4%,10%);
+	background-color: hsl(60, 14%,50%);
 	font-family: Calibri,sans,arial, Sans-serif;
 	width:100%;
 	height:100%;
@@ -24,10 +26,10 @@ body.start{
 	background-color: hsl(60, 4%,80%);
 }
 body.top10{
-	background-color: hsl(60, 14%,10%);
+	background-color: hsl(60, 14%,50%);
 }
 body.highscore{
-	background-color: orange;
+	background-color: hsl(60, 14%,50%);
 }
 canvas{
 	background-color: hsl(60, 4%,14%);
@@ -57,15 +59,32 @@ body.start div#startscreen{
 	opacity:1;
 	z-index:3;
 }
-div.screen *{
+div.screen .container{
 	display:none; /* To avoid accidential clicks */
 }
-body.end div#endscreen *, body.start div#startscreen *{
-	display:block;
+body.end div#endscreen .container, body.start div#startscreen .container{
+	display:inline;
 }
 div#startscreen p{
 	font-size: 48px;
 	margin-top:100px;
+}
+div#endscreen table{
+	margin: 50px auto;
+	color: white;
+	font-family: arial, sans-serif;
+	font-size: 12px;
+	line-height: 1.5;
+	text-align:left;
+	padding: 10px 20px;
+	width:200px;
+	background-color: hsl(60, 9%,7%);
+     -moz-border-radius: 5px; /* FF1+ */
+  -webkit-border-radius: 5px; /* Saf3-4 */
+          border-radius: 5px; /* Opera 10.5, IE9, Saf5, Chrome */
+}
+div#endscreen td{
+	width:50%;	
 }
 a.play{
 	height: 30px;
