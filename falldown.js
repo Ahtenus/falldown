@@ -99,9 +99,9 @@ function updateScore(data) {
 		top10 = 5;
 	else
 		top10 = data[data.length-1].s;
-	if(data == undefined)
-		highscore = 5;
-	else
+	//if(data == undefined)
+	//	highscore = 5;
+	//else
 		highscore = data[0].s;
 	$.each(data, function(i,item){
 		$('#highscore').append("<tr><td>"+item.n+"<td>"+item.s+"</tr>");
@@ -217,13 +217,6 @@ $('a.play').click( function(){
 	$(".postscore label").hide();
 	return false;
     });
-/*
-function submitScore(form){
-	//	$.get('postscore.php',{ n: "Katten", s: "400"});
-		//getScore();
-		//
-		alert(points);
-}*/
 // end document.ready
 });
 

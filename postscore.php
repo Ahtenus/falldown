@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
-if(isset($_GET['n']) && is_numeric($_GET['s'])){
-	$name = strip_tags($_GET['n']);
+if(isset($_GET['n']) && is_numeric($_GET['s']) && isset($_GET['_'])){
+	$name = strip_tags(substr($_GET['n'],0,20));
 	$arr = json_decode(file_get_contents('score.json'),true);
 	$newarr;
 	$yourscore = array('n' =>$name, 's' => $_GET['s']);
