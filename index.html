@@ -15,12 +15,17 @@
 	<canvas id=can width="700" height="480"></canvas>
 	<div id=startscreen class=screen>
 		<div class=container>
-			<p>Avoid the ceiling.</p>
+			<h1>Avoid the ceiling.</h1>
 			<a class=play>Start game</a>
 		</div>
 	</div>
 	<div id=endscreen class=screen>
 		<div class=container>
+			<form class=postscore >
+				<h2 class=ten>You made it to the top 10!</h2>
+				<h2 class=h>New highscore!</h2>
+				<label>Enter your name: <input id=name name=n></label>
+			</form>
 			<table id=highscore></table>
 			<a class=play>Play again</a>
 		</div>

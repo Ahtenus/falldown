@@ -8,8 +8,7 @@
 
 *{margin:0;padding:0;}
 body{
-	background-color: hsl(60, 4%,10%);
-	background-color: hsl(60, 14%,50%);
+	background-color: hsl(60, 14%,20%);
 	font-family: Calibri,sans,arial, Sans-serif;
 	width:100%;
 	height:100%;
@@ -26,10 +25,10 @@ body.start{
 	background-color: hsl(60, 4%,80%);
 }
 body.top10{
-	background-color: hsl(60, 14%,50%);
+	background-color: hsl(120, 40%,50%);
 }
 body.highscore{
-	background-color: hsl(60, 14%,50%);
+	background-color: hsl(120, 60%,50%);
 }
 canvas{
 	background-color: hsl(60, 4%,14%);
@@ -65,9 +64,11 @@ div.screen .container{
 body.end div#endscreen .container, body.start div#startscreen .container{
 	display:inline;
 }
-div#startscreen p{
+div#startscreen h1{
 	font-size: 48px;
 	margin-top:100px;
+	font-weight:normal;
+	margin-bottom:200px;
 }
 div#endscreen table{
 	margin: 50px auto;
@@ -86,20 +87,31 @@ div#endscreen table{
 div#endscreen td{
 	width:50%;	
 }
+div#endscreen h2{
+	margin-top:30px;
+	margin-bottom:10px;
+}
+form.postscore{
+	display:none;
+}
+body.top10 form.postscore,body.highscore form.postscore{
+	display:block;
+}
+body.top10 .h{display:none;}
+body.highscore .ten{display:none;}
 a.play{
 	height: 30px;
 	font-size: 24px;
 	left: 275px;
 	line-height: 40px;
-	position: absolute;
-	top: 325px;
 	height: 40px;
-	width: 150px;
 	cursor:pointer;
 	background-color: hsl(60, 9%,9%);
+	padding: 10px;
      -moz-border-radius: 5px; /* FF1+ */
   -webkit-border-radius: 5px; /* Saf3-4 */
           border-radius: 5px; /* Opera 10.5, IE9, Saf5, Chrome */
+	  
 }
 div#bar{
 	font-family: arial,Sans-serif;

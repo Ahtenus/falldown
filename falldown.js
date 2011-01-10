@@ -11,8 +11,9 @@ $(document).ready(function() {
  TODO:	
  	Fair random
 	Slightly different distance between walls
-	Firefox get score bug
 	styling
+	Bind/unbind mouse
+	Empthy JSON
 */
 
 var ctx;
@@ -28,7 +29,7 @@ var level;
 var frame;
 var top10;
 var highscore;
-$.ajax({cache : false})
+$.ajaxSetup({cache : false})
 function Cursor(){
 	this.x = WIDTH/2;
 	this.w = 25;
@@ -91,20 +92,27 @@ function drawWall(){
 function moveUpWall(speed){
 	this.y -= speed;
 }
-function getScore(){
-	$.getJSON("score.json",
-		function(data) {
-			$('#highscore').html("");
-			top10 = data[data.length-1].s;
-			highscore = data[0].s;
-		$.each(data, function(i,item){
-			$('#highscore').append("<tr><td>"+item.n+"<td>"+item.s+"</tr>");
-		});
-	});
 
+function updateScore(data) {
+	$('#highscore').html("");
+	if(data.length < 10 || data == null)
+		top10 = 5;
+	else
+		top10 = data[data.length-1].s;
+	if(data == undefined)
+		highscore = 5;
+	else
+		highscore = data[0].s;
+	$.each(data, function(i,item){
+		$('#highscore').append("<tr><td>"+item.n+"<td>"+item.s+"</tr>");
+	});
+}
+function getScore(){
+	$.getJSON("score.json",function(data){updateScore(data);});
 }
 function init(){
 	cur = new Cursor();
+	$(".postscore label").show();
 	points = 0;
 	$('#points').html("");
 	frame = 0;
@@ -115,6 +123,7 @@ function init(){
 	$("body").removeClass();
 	getScore();
 	intervalId = setInterval(draw, 25);
+
 }
 
 $(document).mousemove(function(evt) {
@@ -131,11 +140,11 @@ function rect(x,y,w,h) {
 	ctx.fill();
 }
 function addPoints(p){
-	$('#points').html(points += p);
 	if(points == top10)
 		$("body").addClass("top10");
 	if(points == highscore)
 		$("body").addClass("highscore").removeClass("top10");
+	$('#points').html(points += p);
 }
 function clear(){
 	 ctx.clearRect(0,0,WIDTH,HEIGHT + 5);
@@ -202,6 +211,19 @@ if(canvas.getContext){
 $('a.play').click( function(){
 	init();
 });
+ $("form").submit(function() {
+	var name = $("#name").val();
+	$.getJSON('postscore.php?n='+name+'&s='+points,function(data){updateScore(data);});
+	$(".postscore label").hide();
+	return false;
+    });
+/*
+function submitScore(form){
+	//	$.get('postscore.php',{ n: "Katten", s: "400"});
+		//getScore();
+		//
+		alert(points);
+}*/
 // end document.ready
 });
 
