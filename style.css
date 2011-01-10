@@ -84,8 +84,8 @@ div#endscreen table{
   -webkit-border-radius: 5px; /* Saf3-4 */
           border-radius: 5px; /* Opera 10.5, IE9, Saf5, Chrome */
 }
-div#endscreen td{
-	width:50%;	
+div#endscreen tr:first-child{
+	width:100px;	
 }
 div#endscreen h2{
 	margin-top:30px;
