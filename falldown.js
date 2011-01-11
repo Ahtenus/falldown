@@ -11,8 +11,7 @@ $(document).ready(function() {
  TODO:	
  	Fair random
 	Slightly different distance between walls
-	styling
-	Bind/unbind mouse
+	Styling
 	Empthy JSON
 */
 
@@ -95,14 +94,11 @@ function moveUpWall(speed){
 
 function updateScore(data) {
 	$('#highscore').html("");
-	if(data.length < 10 || data == null)
+	if(data.length < 10)
 		top10 = 5;
 	else
 		top10 = data[data.length-1].s;
-	//if(data == undefined)
-	//	highscore = 5;
-	//else
-		highscore = data[0].s;
+	highscore = data[0].s;
 	$.each(data, function(i,item){
 		$('#highscore').append("<tr><td>"+item.n+"<td>"+item.s+"</tr>");
 	});
@@ -122,14 +118,15 @@ function init(){
 	cursor = 0;
 	$("body").removeClass();
 	getScore();
+	$(document).bind('mousemove', mousem);
 	intervalId = setInterval(draw, 25);
 
 }
 
-$(document).mousemove(function(evt) {
+var mousem = function(evt){
 	var mouseX = evt.pageX - canvasMinX;
 	cur.updatePos(mouseX);
-});
+};
 $(window).resize(function() {
 	canvasMinX = $("#can").offset().left;
 });
@@ -152,6 +149,7 @@ function clear(){
 }
 function die() {
 	clearInterval(intervalId);
+	$(document).unbind('mousemove', mousem);
 	$("body").addClass("end");
 }
 function draw() {
