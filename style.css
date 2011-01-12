@@ -99,19 +99,23 @@ body.top10 form.postscore,body.highscore form.postscore{
 }
 body.top10 .h{display:none;}
 body.highscore .ten{display:none;}
-a.play{
-	height: 30px;
-	font-size: 24px;
-	left: 275px;
-	line-height: 40px;
-	height: 40px;
-	cursor:pointer;
+.button{
 	background-color: hsl(60, 9%,9%);
-	padding: 10px;
+	border:none;
+	color: hsl(60, 60%,65%);
      -moz-border-radius: 5px; /* FF1+ */
   -webkit-border-radius: 5px; /* Saf3-4 */
           border-radius: 5px; /* Opera 10.5, IE9, Saf5, Chrome */
 	  
+	padding: 3px;
+}
+a.play{
+	font-size: 24px;
+	padding: 10px;
+	left: 275px;
+	line-height: 40px;
+	height: 40px;
+	cursor:pointer;
 }
 div#bar{
 	font-family: arial,Sans-serif;

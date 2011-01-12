@@ -212,7 +212,7 @@ $('a.play').click( function(){
  $("form").submit(function() {
 	var name = $("#name").val();
 	$.getJSON('postscore.php?n='+name+'&s='+points,function(data){updateScore(data);});
-	$(".postscore label").hide();
+	$("#inp").hide();
 	return false;
     });
 // end document.ready

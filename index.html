@@ -16,7 +16,7 @@
 	<div id=startscreen class=screen>
 		<div class=container>
 			<h1>Avoid the ceiling.</h1>
-			<a class=play>Start game</a>
+			<a class="play button">Start game</a>
 		</div>
 	</div>
 	<div id=endscreen class=screen>
@@ -24,10 +24,13 @@
 			<form class=postscore >
 				<h2 class=ten>You made it to the top 10!</h2>
 				<h2 class=h>New highscore!</h2>
-				<label>Enter your name: <input id=name maxlength="20" name=n></label>
+				<div id=inp>
+					<label>Enter your name: <input id=name class=button maxlength="20" name=n></label>
+					<input type=submit class=button value="OK">
+				</div>
 			</form>
 			<table id=highscore></table>
-			<a class=play>Play again</a>
+			<a class="play button">Play again</a>
 		</div>
 	</div>
 </div>
