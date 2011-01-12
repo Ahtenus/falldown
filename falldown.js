@@ -11,7 +11,6 @@ $(document).ready(function() {
  TODO:	
  	Fair random
 	Slightly different distance between walls
-	Styling
 	Empthy JSON
 */
 
@@ -108,7 +107,7 @@ function getScore(){
 }
 function init(){
 	cur = new Cursor();
-	$(".postscore label").show();
+	$("#inp").show();
 	points = 0;
 	$('#points').html("");
 	frame = 0;
