@@ -71,7 +71,7 @@ div#startscreen h1{
 	margin-bottom:200px;
 }
 div#endscreen table{
-	margin: 50px auto;
+	margin: 75px auto 50px;
 	color: white;
 	font-family: arial, sans-serif;
 	font-size: 12px;
@@ -84,6 +84,9 @@ div#endscreen table{
   -webkit-border-radius: 5px; /* Saf3-4 */
           border-radius: 5px; /* Opera 10.5, IE9, Saf5, Chrome */
 }
+body.top10 div#endscreen table, body.highscore table {
+	margin:50px auto;
+}
 div#endscreen tr:first-child{
 	width:100px;	
 }
@@ -93,6 +96,9 @@ div#endscreen h2{
 }
 form.postscore{
 	display:none;
+}
+form.postscore #inp{
+	margin-bottom:-22px;
 }
 body.top10 form.postscore,body.highscore form.postscore{
 	display:block;
