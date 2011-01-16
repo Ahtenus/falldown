@@ -23,7 +23,6 @@ var points;
 var cur;
 var walls;
 var cursor;
-var level;
 var frame;
 var top10;
 var highscore;
@@ -44,7 +43,7 @@ function updatePos(moX){
 		this.x = WIDTH - this.w;
 }
 function fallCursor(w,wallspeed){
-	var speed = 7 + level;
+	var speed = 7 ;
 	var hit = false;
 	if(w == null){
 		this.y += speed
@@ -110,8 +109,8 @@ function init(){
 	$("#inp").show();
 	points = 0;
 	$('#points').html("");
-	frame = 0;
-	$('#level').html(level = 1);
+	frame = 600;
+	$('#level').html(4);
 	walls = new Array();
 	walls[0] = new Wall();
 	cursor = 0;
@@ -135,12 +134,12 @@ function rect(x,y,w,h) {
 	ctx.closePath();
 	ctx.fill();
 }
-function addPoints(p){
+function addPoints(){
 	if(points == top10)
 		$("body").addClass("top10");
 	if(points == highscore)
 		$("body").addClass("highscore").removeClass("top10");
-	$('#points').html(points += p);
+	$('#points').html(points++);
 }
 function clear(){
 	 ctx.clearRect(0,0,WIDTH,HEIGHT + 5);
@@ -155,7 +154,7 @@ function draw() {
 	clear();
 	var current = true;
 	var hit;
-	var speed = 4 + level; 
+	var speed = Math.round(Math.log(frame/200) * 3.5); 
 	var k;
 	for(k = 0; k < walls.length; k++) {
 		var i = cursor + k < walls.length ? cursor + k : cursor + k - walls.length; // To avoid array.shift()
@@ -191,14 +190,11 @@ function draw() {
 
 	ctx.fillStyle = "#CCCC49";
 	rect(cur.x, cur.y, cur.w, cur.h);	
-	addPoints(level);
+	addPoints();
 	if (cur.y < 0)
 		die();
 	frame++;
-	if (frame >= 500){
-		frame  = 0;
-		$('#level').html(++level);
-	}
+		$('#level').html(speed);
 }
 var canvas = $('#can')[0];
 if(canvas.getContext){
