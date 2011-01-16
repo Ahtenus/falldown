@@ -2,7 +2,7 @@
  * Falldown canvas game
  * Copyright 2011 Viktor Barsk
  * Licenced under CC BY-SA 2.5 
- * http://creativecommons.org/licenses/by-sa/2.5/se/
+ * http://creativecommons.org/licenses/by-sa/2.5/
  * Source code: https://github.com/Ahtenus/falldown
  */
 

@@ -1,5 +1,11 @@
 <?php
-error_reporting(E_ALL);
+/* 
+ * Falldown canvas game
+ * Copyright 2011 Viktor Barsk
+ * Licenced under CC BY-SA 2.5 
+ * http://creativecommons.org/licenses/by-sa/2.5/
+ * Source code: https://github.com/Ahtenus/falldown
+*/
 if(isset($_GET['n']) && is_numeric($_GET['s']) && isset($_GET['_'])){
 	$name = strip_tags(substr($_GET['n'],0,20));
 	$arr = json_decode(file_get_contents('score.json'),true);

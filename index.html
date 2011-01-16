@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <head>
-<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-<title>Falldown</title>
-<link rel="stylesheet" href="style.css" media="screen">
-<script src=http://code.jquery.com/jquery-1.4.4.min.js></script>
-<script src="falldown.js" type="text/javascript"></script>
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+	<title>Falldown</title>
+	<link rel="stylesheet" href="style.css" media="screen">
+	<script src=http://code.jquery.com/jquery-1.4.4.min.js></script>
+	<script src="falldown.js" type="text/javascript"></script>
 </head>
 <body class=start>
-<div id=container>
-	<div id=bar>
-		<div class=score>Score: <span id=points></span></div>
-		<div class=level>Speed: <span id=level></span></div>
-	</div>
-	<canvas id=can width="700" height="480"></canvas>
-	<div id=startscreen class=screen>
-		<div class=container>
-			<h1>Avoid the ceiling.</h1>
-			<a class="play button">Start game</a>
+	<div id=container>
+		<div id=bar>
+			<div class=score>Score: <span id=points></span></div>
+			<div class=level>Speed: <span id=level></span></div>
+		</div>
+		<canvas id=can width="700" height="480"></canvas>
+		<div id=startscreen class=screen>
+			<div class=container>
+				<h1>Avoid the ceiling.</h1>
+				<a class="play button">Start game</a>
+			</div>
+		</div>
+		<div id=endscreen class=screen>
+			<div class=container>
+				<form class=postscore >
+					<h2 class=ten>You made it to the top 10!</h2>
+					<h2 class=h>New highscore!</h2>
+					<div id=inp>
+						<label>Enter your name: <input id=name class=button maxlength="20" name=n></label>
+						<input type=submit class=button value="OK">
+					</div>
+				</form>
+				<table id=highscore></table>
+				<a class="play button">Play again</a>
+			</div>
 		</div>
 	</div>
-	<div id=endscreen class=screen>
-		<div class=container>
-			<form class=postscore >
-				<h2 class=ten>You made it to the top 10!</h2>
-				<h2 class=h>New highscore!</h2>
-				<div id=inp>
-					<label>Enter your name: <input id=name class=button maxlength="20" name=n></label>
-					<input type=submit class=button value="OK">
-				</div>
-			</form>
-			<table id=highscore></table>
-			<a class="play button">Play again</a>
-		</div>
-	</div>
-</div>
+	<footer>
+	<a href=https://github.com/Ahtenus/falldown>Fork</a> |
+	An experiment by Viktor Barsk | 
+	<a href=http://creativecommons.org/licenses/by-sa/2.5/>CC BY-SA 2.5</a>
+	</footer>
 </body>
