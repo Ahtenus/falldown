@@ -11,7 +11,6 @@ $(document).ready(function() {
  TODO:	
  	Fair random
 	Slightly different distance between walls
-	Empthy JSON
 */
 
 var ctx;
@@ -103,8 +102,8 @@ function updateScore(data) {
 			top10 = data[data.length-1].s;
 		highscore = data[0].s;
 		$.each(data, function(i,item){
-				$('#highscore').append("<tr><td>"+item.n+"<td>"+item.s+"</tr>");
-				});
+			$('#highscore').append("<tr><td>"+item.n+"<td>"+item.s+"</tr>");
+		});
 	}
 }
 function getScore(){
@@ -145,7 +144,7 @@ function addPoints(){
 		$("body").addClass("top10");
 	if(points == highscore)
 		$("body").addClass("highscore").removeClass("top10");
-	$('#points').html(points++);
+	$('#points').html(++points);
 }
 function clear(){
 	 ctx.clearRect(0,0,WIDTH,HEIGHT + 5);
