@@ -154,7 +154,7 @@ function draw() {
 	clear();
 	var current = true;
 	var hit;
-	var speed = Math.round(Math.log(frame/200) * 3.5); 
+	var speed = Math.round(Math.log(frame/200) * 3.8); 
 	var k;
 	for(k = 0; k < walls.length; k++) {
 		var i = cursor + k < walls.length ? cursor + k : cursor + k - walls.length; // To avoid array.shift()
