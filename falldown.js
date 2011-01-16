@@ -91,15 +91,21 @@ function moveUpWall(speed){
 }
 
 function updateScore(data) {
-	$('#highscore').html("");
-	if(data.length < 10)
+	if($.isEmptyObject(data)){
 		top10 = 5;
-	else
-		top10 = data[data.length-1].s;
-	highscore = data[0].s;
-	$.each(data, function(i,item){
-		$('#highscore').append("<tr><td>"+item.n+"<td>"+item.s+"</tr>");
-	});
+		highscore = 5;
+		$('#highscore').hide();
+	} else {
+		$('#highscore').html("").show();
+		if(data.length < 10)
+			top10 = 5;
+		else
+			top10 = data[data.length-1].s;
+		highscore = data[0].s;
+		$.each(data, function(i,item){
+				$('#highscore').append("<tr><td>"+item.n+"<td>"+item.s+"</tr>");
+				});
+	}
 }
 function getScore(){
 	$.getJSON("score.json",function(data){updateScore(data);});
@@ -170,7 +176,7 @@ function draw() {
 			hit = false;
 		}
 	}
-	if(current){
+	if(current){ // Makes the cursor fall even if there isn't any walls beneath.
 		cur.fall(null);
 	}
 	if(walls.length < 4){
