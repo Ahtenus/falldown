@@ -1,6 +1,6 @@
 Falldown
 ========
-Simple game done with <canvas>
+Game done with the canvas element.
 
 Installation
 ------------
